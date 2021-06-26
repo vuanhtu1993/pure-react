@@ -1,0 +1,26 @@
+@import "mixin";
+
+html {
+  font-size: 20px;
+  color: #535a60;
+  @include respond($tab-land) {
+    font-size: 16px;
+  }
+  @include respond($tab-port) {
+    font-size: 14px;
+  }
+  @include respond($phone) {
+    font-size: 12px;
+  }
+}
+
+.container {
+  padding: 5rem;
+  background: deeppink;
+  border-radius: 2rem;
+  .content {
+    background-color: darkgreen;
+    color: white;
+    padding: 2rem;
+  }
+}

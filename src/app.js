@@ -4,7 +4,9 @@ const App = () => {
   return (
     <>
       <div className="container">
-          constainer
+          <div className="content">
+              content
+          </div>
       </div>
     </>
   )
