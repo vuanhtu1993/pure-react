@@ -1,3 +1,4 @@
+#### *Hà nội ngày 25/06/2021*
 ### Installation
 1. Install React, Webpack, and Babel
 ```
@@ -138,10 +139,50 @@ ReactDOM.render(<App/>, document.getElementById('root'));
 
 > Vậy là đã hiểu Webpack để bundle các module thành 1 file để có để deploy,
 > babel transpile code ES mới thành js version cũ
-> loader là cầu nối giữa babel, scss, css, asset với webpack rồi nhá !!! Cố hiểu đi ae
-
+> loader là cầu nối giữa babel, scss, css, asset (thông qua import nhá) với webpack rồi nhá !!! Cố hiểu đi ae
+=> Tức là cứ có chữ import là webpack vào việc chẳng cần biết import cái gì (scss, css, image, js ....)
 ```
 **Tư duy** scss chắc chắn thuộc nhóm loader rồi search tiếp nào - ơn giời xong sass loader có config webpack luôn
 
 npm install sass-loader sass --save-dev
 ```
+#### *Hà nội 28/06/2021*
+> Nhận ra rằng làm việc khó trong 1 lúc một chốc 1 lát là rất không hiệu quả
+> công việc thường xuyên xảy ra lỗi, nôn nóng => Không tìm được phương án tốt
+> nhất mà chỉ muốn làm sao để cho xong
+
+Tiếp nhé ae !!! - Sau khi cài đặt sass và sass-loader cần phải apply vào trong config của webpack
+
+<span style="color:red">*Quan trọng*:</span> Các loader đều được khai báo trong module (Mỗi rules là một loader).
+
+Lúc này file webpack.config.js => module sẽ như thế này
+```javascript
+module: {
+    rules: [
+      {
+        // for any file with a suffix of js or jsx
+        test: /\.jsx?$/,
+        // ignore transpiling JavaScript from node_modules as it should be that state
+        exclude: /node_modules/,
+        // use the babel-loader for transpiling JavaScript to a suitable format
+        loader: 'babel-loader',
+        options: {
+          // attach the presets to the loader (most projects use .babelrc file instead)
+          presets: ["@babel/preset-env", "@babel/preset-react"]
+        }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ]
+      }
+    ]
+  }
+```
+
